@@ -21,10 +21,11 @@ import {
   Star,
   Quote,
   Award,
-  TrendingDown
+  TrendingDown,
+  ShoppingCart
 } from "lucide-react";
 
-export default function GlobaLaunch() {
+export default function GlobalMarket() {
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [selectedCountry, setSelectedCountry] = useState("Brasil");
 
@@ -72,7 +73,7 @@ export default function GlobaLaunch() {
       name: "Carlos Henrique",
       role: "Ex-Vendedor, Hoje Afiliado",
       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop",
-      content: "Gastei R$ 23 mil em cursos nos últimos 2 anos. Resultado? Zero. Com o GlobaLaunch, clonei uma oferta em 48h e fiz R$ 31 mil no primeiro mês. Cancelei tudo.",
+      content: "Gastei R$ 23 mil em cursos nos últimos 2 anos. Resultado? Zero. Com o Global Market, clonei uma oferta em 48h e fiz R$ 31 mil no primeiro mês. Cancelei tudo.",
       revenue: "R$ 31K no 1º mês",
       rating: 5
     },
@@ -96,7 +97,7 @@ export default function GlobaLaunch() {
       name: "Juliana Ferreira",
       role: "Lançadora de Infoprodutos",
       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
-      content: "Meu último lançamento foi um fracasso. Usei o GlobaLaunch pra analisar o que tava errado e clonar estratégias que funcionam. Próximo lançamento: R$ 420K. A diferença é brutal.",
+      content: "Meu último lançamento foi um fracasso. Usei o Global Market pra analisar o que tava errado e clonar estratégias que funcionam. Próximo lançamento: R$ 420K. A diferença é brutal.",
       revenue: "R$ 420K no relançamento",
       rating: 5
     },
@@ -238,21 +239,43 @@ export default function GlobaLaunch() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                {/* Logo Nova - Mais Criativa e Memorável */}
-                <div className="relative">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 flex items-center justify-center shadow-lg shadow-purple-500/50 rotate-6 hover:rotate-0 transition-transform">
-                    <Globe className="w-7 h-7 text-white animate-pulse" />
+                {/* Logo ULTRA CRIATIVA - Design que Converte */}
+                <div className="relative group">
+                  {/* Círculo externo animado */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 rounded-2xl blur-md group-hover:blur-lg transition-all animate-pulse"></div>
+                  
+                  {/* Logo principal */}
+                  <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 via-cyan-500 to-blue-600 flex items-center justify-center shadow-2xl shadow-cyan-500/50 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                    {/* Ícone de carrinho de compras + globo combinados */}
+                    <div className="relative">
+                      <Globe className="w-7 h-7 text-white absolute -top-1 -left-1 opacity-60" />
+                      <ShoppingCart className="w-8 h-8 text-white relative z-10" />
+                    </div>
                   </div>
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-slate-950 animate-bounce"></div>
+                  
+                  {/* Badge "LIVE" pulsante */}
+                  <div className="absolute -top-1 -right-1 flex items-center gap-1">
+                    <div className="w-3 h-3 bg-red-500 rounded-full animate-ping absolute"></div>
+                    <div className="w-3 h-3 bg-red-500 rounded-full relative border-2 border-slate-950"></div>
+                  </div>
+                  
+                  {/* Badge "$" de dinheiro */}
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center border-2 border-slate-950 shadow-lg">
+                    <span className="text-[10px] font-black text-white">$</span>
+                  </div>
                 </div>
+                
                 <div>
                   <span className="text-2xl font-black text-white tracking-tight">
-                    Globa<span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Launch</span>
+                    Global<span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500">Market</span>
                   </span>
-                  <div className="text-[10px] text-purple-400 font-semibold tracking-widest -mt-1">CLONE & SCALE</div>
+                  <div className="text-[10px] text-cyan-400 font-bold tracking-[0.2em] -mt-1 flex items-center gap-1">
+                    <div className="w-1 h-1 bg-red-500 rounded-full animate-pulse"></div>
+                    CLONE & SCALE AI
+                  </div>
                 </div>
               </div>
-              <button className="px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all">
+              <button className="px-6 py-2 bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all hover:scale-105">
                 Começar Agora
               </button>
             </div>
@@ -261,25 +284,25 @@ export default function GlobaLaunch() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
           <div className="text-center space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 border border-purple-500/30 rounded-full text-purple-300 text-sm font-medium">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/20 border border-cyan-500/30 rounded-full text-cyan-300 text-sm font-medium">
               <Sparkles className="w-4 h-4" />
               <span>Inteligência Artificial Estratégica</span>
             </div>
             
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight">
               Acesse a Inteligência Por Trás<br />
-              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
                 Dos Produtos Que Mais Vendem
               </span>
             </h1>
             
             <p className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto">
               Descubra, clone e escale ofertas de sucesso global com IA. 
-              <span className="text-purple-400 font-semibold"> Sem cursos. Sem tentativa e erro.</span> Apenas resultados.
+              <span className="text-cyan-400 font-semibold"> Sem cursos. Sem tentativa e erro.</span> Apenas resultados.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <button className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all hover:scale-105 flex items-center gap-2">
+              <button className="px-8 py-4 bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all hover:scale-105 flex items-center gap-2">
                 Testar Gratuitamente
                 <ArrowRight className="w-5 h-5" />
               </button>
@@ -308,10 +331,10 @@ export default function GlobaLaunch() {
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center hover:border-purple-500/50 transition-all"
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center hover:border-cyan-500/50 transition-all"
             >
               <div className="flex justify-center mb-3">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 via-cyan-500 to-blue-600 flex items-center justify-center">
                   <stat.icon className="w-6 h-6 text-white" />
                 </div>
               </div>
@@ -326,7 +349,7 @@ export default function GlobaLaunch() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Produtos em Alta <span className="text-purple-400">Agora</span>
+            Produtos em Alta <span className="text-cyan-400">Agora</span>
           </h2>
           <p className="text-gray-400 text-lg">
             Veja o que está vendendo milhões e replique o sucesso
@@ -337,7 +360,7 @@ export default function GlobaLaunch() {
           {trendingProducts.map((product) => (
             <div 
               key={product.id}
-              className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all hover:shadow-xl hover:shadow-purple-500/20 cursor-pointer"
+              className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-cyan-500/50 transition-all hover:shadow-xl hover:shadow-cyan-500/20 cursor-pointer"
             >
               <div className="relative h-48 overflow-hidden">
                 <img 
@@ -352,7 +375,7 @@ export default function GlobaLaunch() {
               
               <div className="p-5 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-purple-400 font-semibold">{product.category}</span>
+                  <span className="text-xs text-cyan-400 font-semibold">{product.category}</span>
                   <span className="text-xs text-gray-400">{product.country}</span>
                 </div>
                 
@@ -360,7 +383,7 @@ export default function GlobaLaunch() {
                 
                 <div className="flex items-center justify-between pt-2 border-t border-white/10">
                   <span className="text-green-400 font-bold">{product.revenue}</span>
-                  <button className="text-purple-400 hover:text-purple-300 transition-colors flex items-center gap-1 text-sm font-semibold">
+                  <button className="text-cyan-400 hover:text-cyan-300 transition-colors flex items-center gap-1 text-sm font-semibold">
                     Clonar
                     <Copy className="w-4 h-4" />
                   </button>
@@ -386,10 +409,10 @@ export default function GlobaLaunch() {
             <span>Resultados Reais • Pessoas Reais</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Eles Cancelaram Todos os Cursos e <span className="text-purple-400">Começaram a Lucrar</span>
+            Eles Cancelaram Todos os Cursos e <span className="text-cyan-400">Começaram a Lucrar</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Mais de 10 mil pessoas já descobriram que não precisam de mais nenhum curso. Só do GlobaLaunch.
+            Mais de 10 mil pessoas já descobriram que não precisam de mais nenhum curso. Só do Global Market.
           </p>
         </div>
 
@@ -397,7 +420,7 @@ export default function GlobaLaunch() {
           {testimonials.map((testimonial, index) => (
             <div 
               key={index}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-purple-500/50 transition-all hover:shadow-xl hover:shadow-purple-500/10"
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-cyan-500/50 transition-all hover:shadow-xl hover:shadow-cyan-500/10"
             >
               <div className="flex items-center gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
@@ -405,7 +428,7 @@ export default function GlobaLaunch() {
                 ))}
               </div>
 
-              <Quote className="w-8 h-8 text-purple-400 mb-4 opacity-50" />
+              <Quote className="w-8 h-8 text-cyan-400 mb-4 opacity-50" />
               
               <p className="text-gray-300 leading-relaxed mb-6">
                 "{testimonial.content}"
@@ -451,7 +474,7 @@ export default function GlobaLaunch() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Tudo Que Você Precisa Para <span className="text-purple-400">Dominar o Mercado</span>
+            Tudo Que Você Precisa Para <span className="text-cyan-400">Dominar o Mercado</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Ferramentas profissionais que eliminam a necessidade de cursos caros e tentativa e erro
@@ -462,9 +485,9 @@ export default function GlobaLaunch() {
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-purple-500/50 transition-all hover:shadow-xl hover:shadow-purple-500/10"
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-cyan-500/50 transition-all hover:shadow-xl hover:shadow-cyan-500/10"
             >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-6">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500 via-cyan-500 to-blue-600 flex items-center justify-center mb-6">
                 <feature.icon className="w-7 h-7 text-white" />
               </div>
               
@@ -477,18 +500,18 @@ export default function GlobaLaunch() {
 
       {/* Clone Feature Highlight */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-3xl p-8 sm:p-12 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 blur-3xl"></div>
+        <div className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 blur-3xl"></div>
           
           <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/30 border border-purple-500/50 rounded-full text-purple-200 text-sm font-medium">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/30 border border-cyan-500/50 rounded-full text-cyan-200 text-sm font-medium">
                 <Sparkles className="w-4 h-4" />
                 <span>Nosso Diferencial</span>
               </div>
               
               <h2 className="text-3xl sm:text-5xl font-bold text-white leading-tight">
-                Clone Ofertas de Sucesso com <span className="text-purple-400">100% de Funcionalidade</span>
+                Clone Ofertas de Sucesso com <span className="text-cyan-400">100% de Funcionalidade</span>
               </h2>
               
               <p className="text-gray-300 text-lg leading-relaxed">
@@ -513,7 +536,7 @@ export default function GlobaLaunch() {
                 ))}
               </ul>
 
-              <button className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all hover:scale-105 inline-flex items-center gap-2">
+              <button className="px-8 py-4 bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all hover:scale-105 inline-flex items-center gap-2">
                 Começar a Clonar Agora
                 <Copy className="w-5 h-5" />
               </button>
@@ -522,14 +545,14 @@ export default function GlobaLaunch() {
             <div className="relative">
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-purple-400 font-semibold">Oferta Clonada</span>
+                  <span className="text-cyan-400 font-semibold">Oferta Clonada</span>
                   <span className="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full">Validada</span>
                 </div>
                 
                 <div className="space-y-3">
-                  <div className="h-3 bg-purple-500/30 rounded-full w-full"></div>
-                  <div className="h-3 bg-purple-500/30 rounded-full w-4/5"></div>
-                  <div className="h-3 bg-purple-500/30 rounded-full w-3/4"></div>
+                  <div className="h-3 bg-cyan-500/30 rounded-full w-full"></div>
+                  <div className="h-3 bg-cyan-500/30 rounded-full w-4/5"></div>
+                  <div className="h-3 bg-cyan-500/30 rounded-full w-3/4"></div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 pt-4">
@@ -552,7 +575,7 @@ export default function GlobaLaunch() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Escolha Seu Plano e <span className="text-purple-400">Pare de Comprar Cursos</span>
+            Escolha Seu Plano e <span className="text-cyan-400">Pare de Comprar Cursos</span>
           </h2>
           <p className="text-gray-400 text-lg">
             Investimento que se paga sozinho. Tudo que você precisa está aqui.
@@ -565,12 +588,12 @@ export default function GlobaLaunch() {
               key={index}
               className={`relative bg-white/5 backdrop-blur-sm border rounded-3xl p-8 hover:shadow-2xl transition-all ${
                 plan.popular 
-                  ? 'border-purple-500 shadow-xl shadow-purple-500/20 scale-105' 
-                  : 'border-white/10 hover:border-purple-500/50'
+                  ? 'border-cyan-500 shadow-xl shadow-cyan-500/20 scale-105' 
+                  : 'border-white/10 hover:border-cyan-500/50'
               }`}
             >
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-bold rounded-full">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 text-white text-sm font-bold rounded-full">
                   Mais Popular
                 </div>
               )}
@@ -595,15 +618,15 @@ export default function GlobaLaunch() {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between text-white">
                     <span>Estratégias:</span>
-                    <span className="font-bold text-purple-400">{plan.limits.strategies}</span>
+                    <span className="font-bold text-cyan-400">{plan.limits.strategies}</span>
                   </div>
                   <div className="flex justify-between text-white">
                     <span>Clonagem:</span>
-                    <span className="font-bold text-purple-400">{plan.limits.clone}</span>
+                    <span className="font-bold text-cyan-400">{plan.limits.clone}</span>
                   </div>
                   <div className="flex justify-between text-white">
                     <span>Escala:</span>
-                    <span className="font-bold text-purple-400">{plan.limits.scale}</span>
+                    <span className="font-bold text-cyan-400">{plan.limits.scale}</span>
                   </div>
                 </div>
               </div>
@@ -621,7 +644,7 @@ export default function GlobaLaunch() {
                 onClick={() => handleCheckout(plan.name.toLowerCase())}
                 className={`w-full py-4 rounded-xl font-bold text-lg transition-all ${
                   plan.popular
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:shadow-xl hover:shadow-purple-500/50 hover:scale-105'
+                    ? 'bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 text-white hover:shadow-xl hover:shadow-cyan-500/50 hover:scale-105'
                     : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
                 }`}
               >
@@ -633,7 +656,7 @@ export default function GlobaLaunch() {
 
         <div className="text-center mt-12 space-y-4">
           <p className="text-gray-400">
-            ✨ <span className="text-purple-400 font-semibold">Teste grátis:</span> 1 produto completo sem cartão de crédito
+            ✨ <span className="text-cyan-400 font-semibold">Teste grátis:</span> 1 produto completo sem cartão de crédito
           </p>
           <p className="text-gray-400">
             Todos os planos incluem garantia de 7 dias. Cancele quando quiser.
@@ -643,8 +666,8 @@ export default function GlobaLaunch() {
 
       {/* CTA Final */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl p-12 sm:p-16 text-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-600/50 to-pink-600/50 blur-3xl"></div>
+        <div className="bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 rounded-3xl p-12 sm:p-16 text-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/50 via-cyan-600/50 to-blue-700/50 blur-3xl"></div>
           
           <div className="relative space-y-6">
             <h2 className="text-3xl sm:text-5xl font-bold text-white leading-tight">
@@ -657,7 +680,7 @@ export default function GlobaLaunch() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <button className="px-10 py-5 bg-white text-purple-600 rounded-xl font-bold text-lg hover:shadow-2xl transition-all hover:scale-105 flex items-center gap-2">
+              <button className="px-10 py-5 bg-white text-cyan-600 rounded-xl font-bold text-lg hover:shadow-2xl transition-all hover:scale-105 flex items-center gap-2">
                 Testar Gratuitamente
                 <Rocket className="w-5 h-5" />
               </button>
@@ -685,17 +708,20 @@ export default function GlobaLaunch() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
-              <div className="relative">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 flex items-center justify-center shadow-lg shadow-purple-500/50">
-                  <Globe className="w-6 h-6 text-white" />
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 rounded-2xl blur-md"></div>
+                <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 via-cyan-500 to-blue-600 flex items-center justify-center shadow-2xl shadow-cyan-500/50">
+                  <div className="relative">
+                    <Globe className="w-5 h-5 text-white absolute -top-0.5 -left-0.5 opacity-60" />
+                    <ShoppingCart className="w-6 h-6 text-white relative z-10" />
+                  </div>
                 </div>
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-slate-950"></div>
               </div>
-              <span className="text-xl font-bold text-white">GlobaLaunch</span>
+              <span className="text-xl font-bold text-white">Global<span className="text-cyan-400">Market</span></span>
             </div>
             
             <p className="text-gray-400 text-sm">
-              © 2024 GlobaLaunch. Transforme estratégias em lucro.
+              © 2024 Global Market. Transforme estratégias em lucro.
             </p>
           </div>
         </div>

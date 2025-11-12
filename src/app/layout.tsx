@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Criado com a Lasy",
-  description: "Projeto criado com Lasy AI",
+  title: "Global Market - Clone & Scale AI",
+  description: "Descubra, clone e escale ofertas de sucesso global com IA. Sem cursos. Apenas resultados.",
 };
 
 export default function RootLayout({

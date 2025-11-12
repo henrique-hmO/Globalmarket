@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { 
   TrendingUp, 
   Globe, 
@@ -138,11 +139,7 @@ export default function GlobalMarket() {
         "Atualizações semanais",
         "Suporte por email"
       ],
-      limits: {
-        strategies: "5 por mês",
-        clone: "Não incluído",
-        scale: "Não incluído"
-      },
+      limits: "5 estratégias por mês • Sem acesso a clonagem e escala",
       icon: Rocket,
       color: "from-blue-500 to-cyan-500"
     },
@@ -158,11 +155,7 @@ export default function GlobalMarket() {
         "Análise de neuromarketing",
         "Suporte prioritário"
       ],
-      limits: {
-        strategies: "10 por mês",
-        clone: "10 clonagens/mês",
-        scale: "10 escalas/mês"
-      },
+      limits: "10 estratégias • 10 clonagens • 10 escalas por mês",
       icon: TrendingUp,
       color: "from-purple-500 to-pink-500",
       popular: true
@@ -180,11 +173,7 @@ export default function GlobalMarket() {
         "Consultoria estratégica mensal",
         "Suporte VIP 24/7"
       ],
-      limits: {
-        strategies: "Ilimitado",
-        clone: "Ilimitado",
-        scale: "Ilimitado"
-      },
+      limits: "Tudo ilimitado • Acesso total sem restrições",
       icon: Crown,
       color: "from-amber-500 to-orange-500"
     }
@@ -275,9 +264,14 @@ export default function GlobalMarket() {
                   </div>
                 </div>
               </div>
-              <button className="px-6 py-2 bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all hover:scale-105">
-                Começar Agora
-              </button>
+              <div className="flex items-center gap-3">
+                <Link href="/register" className="px-6 py-2 bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all hover:scale-105">
+                  Começar Agora
+                </Link>
+                <Link href="/login" className="px-6 py-2 bg-white/10 backdrop-blur-sm text-white rounded-lg font-semibold hover:bg-white/20 transition-all border border-white/20">
+                  Fazer Login
+                </Link>
+              </div>
             </div>
           </div>
         </nav>
@@ -302,13 +296,13 @@ export default function GlobalMarket() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <button className="px-8 py-4 bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all hover:scale-105 flex items-center gap-2">
+              <Link href="/register" className="px-8 py-4 bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all hover:scale-105 flex items-center gap-2">
                 Testar Gratuitamente
                 <ArrowRight className="w-5 h-5" />
-              </button>
-              <button className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-xl font-semibold text-lg hover:bg-white/20 transition-all border border-white/20">
-                Ver Demonstração
-              </button>
+              </Link>
+              <Link href="/login" className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-xl font-semibold text-lg hover:bg-white/20 transition-all border border-white/20">
+                Fazer Login
+              </Link>
             </div>
 
             <div className="flex items-center justify-center gap-8 pt-8 text-sm text-gray-400">
@@ -571,7 +565,7 @@ export default function GlobalMarket() {
         </div>
       </div>
 
-      {/* Pricing Section - ATUALIZADO COM NOVOS LIMITES */}
+      {/* Pricing Section - SEM TABELAS, APENAS TEXTO DESCRITIVO */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -612,23 +606,11 @@ export default function GlobalMarket() {
                 </div>
               </div>
 
-              {/* Limites do Plano */}
-              <div className="mb-6 p-4 bg-white/5 rounded-xl border border-white/10">
-                <div className="text-sm text-gray-400 mb-2">Limites mensais:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between text-white">
-                    <span>Estratégias:</span>
-                    <span className="font-bold text-cyan-400">{plan.limits.strategies}</span>
-                  </div>
-                  <div className="flex justify-between text-white">
-                    <span>Clonagem:</span>
-                    <span className="font-bold text-cyan-400">{plan.limits.clone}</span>
-                  </div>
-                  <div className="flex justify-between text-white">
-                    <span>Escala:</span>
-                    <span className="font-bold text-cyan-400">{plan.limits.scale}</span>
-                  </div>
-                </div>
+              {/* Limites em texto simples */}
+              <div className="mb-6 p-4 bg-cyan-500/10 border border-cyan-500/30 rounded-xl">
+                <p className="text-sm text-cyan-300 font-medium text-center">
+                  {plan.limits}
+                </p>
               </div>
 
               <ul className="space-y-4 mb-8">
@@ -680,13 +662,13 @@ export default function GlobalMarket() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <button className="px-10 py-5 bg-white text-cyan-600 rounded-xl font-bold text-lg hover:shadow-2xl transition-all hover:scale-105 flex items-center gap-2">
+              <Link href="/register" className="px-10 py-5 bg-white text-cyan-600 rounded-xl font-bold text-lg hover:shadow-2xl transition-all hover:scale-105 flex items-center gap-2">
                 Testar Gratuitamente
                 <Rocket className="w-5 h-5" />
-              </button>
-              <button className="px-10 py-5 bg-white/20 backdrop-blur-sm text-white rounded-xl font-semibold text-lg hover:bg-white/30 transition-all border border-white/30">
+              </Link>
+              <Link href="/#pricing" className="px-10 py-5 bg-white/20 backdrop-blur-sm text-white rounded-xl font-semibold text-lg hover:bg-white/30 transition-all border border-white/30">
                 Ver Planos
-              </button>
+              </Link>
             </div>
 
             <div className="flex items-center justify-center gap-8 pt-8 text-white/80">

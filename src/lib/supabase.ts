@@ -6,156 +6,148 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Types
-export interface UserProfile {
+export interface User {
   id: string;
   email: string;
-  plan: 'free' | 'start' | 'growth' | 'pro' | 'lifetime';
+  role: 'admin' | 'user';
+  plan: 'free' | 'start' | 'growth' | 'pro';
   strategies_used: number;
-  strategies_limit: number;
   clone_uses: number;
-  clone_limit: number;
   scale_uses: number;
-  scale_limit: number;
-  trial_used: boolean;
   created_at: string;
-  subscription_status: 'active' | 'canceled' | 'expired';
-  stripe_customer_id?: string;
-  stripe_subscription_id?: string;
+  trial_used: boolean;
+  trial_ip?: string;
 }
 
-export interface TrialAccess {
+export interface Announcement {
   id: string;
-  ip_address: string;
-  product_accessed: string;
-  accessed_at: string;
+  title: string;
+  content: string;
+  type: 'info' | 'warning' | 'success';
+  created_at: string;
+  created_by: string;
 }
 
-// Check if email has lifetime access
-export const hasLifetimeAccess = (email: string): boolean => {
-  return email === 'henriquemoraesh@gmail.com';
-};
-
-// Get user profile
-export const getUserProfile = async (userId: string): Promise<UserProfile | null> => {
-  const { data, error } = await supabase
-    .from('user_profiles')
-    .select('*')
-    .eq('id', userId)
-    .single();
-
-  if (error) {
-    console.error('Error fetching user profile:', error);
-    return null;
+// Auth helpers
+export const signUp = async (email: string, password: string) => {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+  
+  if (error) throw error;
+  
+  // Create user profile
+  if (data.user) {
+    const { error: profileError } = await supabase
+      .from('users')
+      .insert({
+        id: data.user.id,
+        email: data.user.email,
+        role: email === 'henriquemoraesh@gmail.com' ? 'admin' : 'user',
+        plan: 'free',
+        strategies_used: 0,
+        clone_uses: 0,
+        scale_uses: 0,
+        trial_used: false,
+      });
+    
+    if (profileError) throw profileError;
   }
-
+  
   return data;
 };
 
-// Check trial access by IP
-export const checkTrialAccess = async (ipAddress: string): Promise<boolean> => {
-  const { data, error } = await supabase
-    .from('trial_access')
+export const signIn = async (email: string, password: string) => {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+  
+  if (error) throw error;
+  return data;
+};
+
+export const signOut = async () => {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
+};
+
+export const getCurrentUser = async () => {
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  if (!user) return null;
+  
+  const { data: profile } = await supabase
+    .from('users')
     .select('*')
-    .eq('ip_address', ipAddress)
+    .eq('id', user.id)
     .single();
-
-  if (error && error.code !== 'PGRST116') {
-    console.error('Error checking trial access:', error);
-    return false;
-  }
-
-  return !!data;
+  
+  return profile as User;
 };
 
-// Register trial access
-export const registerTrialAccess = async (ipAddress: string, productId: string): Promise<boolean> => {
+// Usage tracking
+export const trackUsage = async (userId: string, type: 'strategy' | 'clone' | 'scale') => {
+  const user = await getCurrentUser();
+  if (!user) throw new Error('User not found');
+  
+  const field = type === 'strategy' ? 'strategies_used' : 
+                type === 'clone' ? 'clone_uses' : 'scale_uses';
+  
   const { error } = await supabase
-    .from('trial_access')
-    .insert({
-      ip_address: ipAddress,
-      product_accessed: productId,
-      accessed_at: new Date().toISOString()
-    });
-
-  if (error) {
-    console.error('Error registering trial access:', error);
-    return false;
-  }
-
-  return true;
-};
-
-// Update user usage
-export const updateUserUsage = async (
-  userId: string,
-  type: 'strategy' | 'clone' | 'scale'
-): Promise<boolean> => {
-  const profile = await getUserProfile(userId);
-  if (!profile) return false;
-
-  const updates: any = {};
-
-  switch (type) {
-    case 'strategy':
-      if (profile.strategies_used >= profile.strategies_limit && profile.plan !== 'pro' && profile.plan !== 'lifetime') {
-        return false;
-      }
-      updates.strategies_used = profile.strategies_used + 1;
-      break;
-    case 'clone':
-      if (profile.clone_uses >= profile.clone_limit && profile.plan !== 'pro' && profile.plan !== 'lifetime') {
-        return false;
-      }
-      updates.clone_uses = profile.clone_uses + 1;
-      break;
-    case 'scale':
-      if (profile.scale_uses >= profile.scale_limit && profile.plan !== 'pro' && profile.plan !== 'lifetime') {
-        return false;
-      }
-      updates.scale_uses = profile.scale_uses + 1;
-      break;
-  }
-
-  const { error } = await supabase
-    .from('user_profiles')
-    .update(updates)
+    .from('users')
+    .update({ [field]: user[field] + 1 })
     .eq('id', userId);
+  
+  if (error) throw error;
+};
 
-  if (error) {
-    console.error('Error updating user usage:', error);
-    return false;
+// Check limits
+export const checkLimits = async (userId: string, type: 'strategy' | 'clone' | 'scale'): Promise<boolean> => {
+  const user = await getCurrentUser();
+  if (!user) return false;
+  
+  // Admin and developer have unlimited access
+  if (user.email === 'henriquemoraesh@gmail.com' || user.role === 'admin') {
+    return true;
   }
-
+  
+  // Pro plan has unlimited access
+  if (user.plan === 'pro') {
+    return true;
+  }
+  
+  // Check limits based on plan
+  if (type === 'strategy') {
+    if (user.plan === 'start' && user.strategies_used >= 5) return false;
+    if (user.plan === 'growth' && user.strategies_used >= 10) return false;
+  }
+  
+  if (type === 'clone' || type === 'scale') {
+    if (user.plan === 'free' || user.plan === 'start') return false;
+    if (user.plan === 'growth' && user.clone_uses >= 10) return false;
+  }
+  
   return true;
 };
 
-// Get plan limits
-export const getPlanLimits = (plan: string) => {
-  switch (plan) {
-    case 'start':
-      return {
-        strategies_limit: 5,
-        clone_limit: 0,
-        scale_limit: 0
-      };
-    case 'growth':
-      return {
-        strategies_limit: 10,
-        clone_limit: 10,
-        scale_limit: 10
-      };
-    case 'pro':
-    case 'lifetime':
-      return {
-        strategies_limit: -1, // unlimited
-        clone_limit: -1,
-        scale_limit: -1
-      };
-    default:
-      return {
-        strategies_limit: 0,
-        clone_limit: 0,
-        scale_limit: 0
-      };
-  }
+// Trial check
+export const checkTrialAvailable = async (ip: string): Promise<boolean> => {
+  const { data } = await supabase
+    .from('users')
+    .select('trial_ip')
+    .eq('trial_ip', ip)
+    .single();
+  
+  return !data;
+};
+
+export const markTrialUsed = async (userId: string, ip: string) => {
+  const { error } = await supabase
+    .from('users')
+    .update({ trial_used: true, trial_ip: ip })
+    .eq('id', userId);
+  
+  if (error) throw error;
 };
